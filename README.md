@@ -12,20 +12,18 @@ Preprint: [arXiv:2509.26475](https://arxiv.org/abs/2509.26475)
 \(\varphi\)-function actions,
 
 
-W(:,i) = \varphi_0(t_iA)v_0 + \sum_{j=1}^{p}\alpha_i^j\,\varphi_j(t_iA)v_j,
-\qquad i=1,\ldots,r,
+$W(:,i) = \varphi_0(t_iA)v_0 + \sum_{j=1}^{p}\alpha_i^j\,\varphi_j(t_iA)v_j,
+\qquad i=1,\ldots,r,$
 
 
 where
 
-\[
-\varphi_0(z)=e^z,
-\qquad
-\varphi_j(z)
-=
+
+$\varphi_0(z)=e^z, \qquad
+\varphi_j(z) =
 \frac{e^z-\sum_{k=0}^{j-1}z^k/k!}{z^j},
-\quad j\ge 1.
-\]
+\quad j\ge 1.$
+
 
 The routine is designed for exponential-integrator computations and supports
 
