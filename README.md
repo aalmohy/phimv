@@ -11,7 +11,7 @@ Preprint: [arXiv:2509.26475](https://arxiv.org/abs/2509.26475)
 `phimv` computes one or several linear combinations of matrix
 \(\varphi\)-function actions,
 
-\[
+
 W(:,i)
 =
 \varphi_0(t_iA)v_0
@@ -19,7 +19,7 @@ W(:,i)
 \sum_{j=1}^{p}
 \alpha_i^j\,\varphi_j(t_iA)v_j,
 \qquad i=1,\ldots,r,
-\]
+
 
 where
 
