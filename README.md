@@ -11,13 +11,9 @@ Preprint: [arXiv:2509.26475](https://arxiv.org/abs/2509.26475)
 `phimv` computes one or several linear combinations of matrix
 \(\varphi\)-function actions,
 
-$
-w_i = \varphi_0(t_iA)v_0 + \sum_{j=1}^{p}\alpha_i^j\,\varphi_j(t_iA)v_j,\qquad i=1,\ldots,r,
-$
+$w_i = \varphi_0(t_iA)v_0 + \sum_{j=1}^{p}\alpha_i^j\,\varphi_j(t_iA)v_j,\qquad i=1,\ldots,r,$
 where
-$
-\varphi_0(z)=e^z,\qquad \varphi_j(z)=\frac{e^z-\sum_{k=0}^{j-1}z^k/k!}{z^j},\quad j\ge 1.
-$
+$\varphi_0(z)=e^z,\qquad \varphi_j(z)=\frac{e^z-\sum_{k=0}^{j-1}z^k/k!}{z^j},\quad j\ge 1.$
 
 The routine is designed for exponential-integrator computations and supports
 
@@ -217,14 +213,8 @@ W = phimv(t,alpha,Afun,v0,V);
 
 Column `i` of `W` is
 
-\[
-W(:,i)
-=
-e^{t_iA}v_0
-+
-\sum_{j=1}^{p}
-t_i^j\varphi_j(t_iA)v_j.
-\]
+$W(:,i)=e^{t_iA}v_0+\sum_{j=1}^{p}t_i^j\varphi_j(t_iA)v_j.$
+
 
 The parameters `t` and `alpha` are intentionally separate.  For example,
 
