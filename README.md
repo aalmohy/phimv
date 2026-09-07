@@ -2,42 +2,25 @@
 
 MATLAB implementation and reproducibility files for
 
-**Awad H. Al-Mohy, _Computing Linear Combinations of \(\varphi\)-Function Actions for Exponential Integrators_.**
+**Awad H. Al-Mohy, _Computing Linear Combinations of $\varphi$-Function Actions for Exponential Integrators_.**
 
 Preprint: [arXiv:2509.26475](https://arxiv.org/abs/2509.26475)
 
 ## Overview
 
 `phimv` computes one or several linear combinations of matrix
-\(\varphi\)-function actions,
+$\varphi$-function actions,
 
-\[
-W(:,i)
-=
-\varphi_0(t_iA)v_0
-+
-\sum_{j=1}^{p}
-\alpha_i^j\,\varphi_j(t_iA)v_j,
-\qquad i=1,\ldots,r,
-\]
-
+$w_i = \varphi_0(t_iA)v_0 + \sum_{j=1}^{p}\alpha_i^j\,\varphi_j(t_iA)v_j,\qquad i=1,\ldots,r,$
 where
-
-\[
-\varphi_0(z)=e^z,
-\qquad
-\varphi_j(z)
-=
-\frac{e^z-\sum_{k=0}^{j-1}z^k/k!}{z^j},
-\quad j\ge 1.
-\]
+$\varphi_0(z)=e^z,\qquad \varphi_j(z)=\frac{e^z-\sum_{k=0}^{j-1}z^k/k!}{z^j},\quad j\ge 1$.
 
 The routine is designed for exponential-integrator computations and supports
 
 - explicit dense or sparse matrices;
 - matrix-free, block-capable linear operators;
 - a single linear combination or several combinations evaluated simultaneously;
-- independent stage parameters \(t_i\) and polynomial weights \(\alpha_i\);
+- independent stage parameters $t_i$ and polynomial weights $\alpha_i$;
 - user-controlled accuracy;
 - reuse of the scaling and shift parameters when the same operator is used repeatedly.
 
@@ -168,9 +151,9 @@ Here
 - `t` is a scalar or a vector of stage parameters;
 - `alpha` is a scalar or has `numel(t)` entries;
 - `A` is an `n`-by-`n` matrix or a block-capable function handle;
-- `v0` is the vector multiplying \(\varphi_0(tA)=e^{tA}\);
+- `v0` is the vector multiplying $\varphi_0(tA)=e^{tA}$;
 - `V = [v1,...,vp]` contains the vectors multiplying
-  \(\varphi_1,\ldots,\varphi_p\);
+  $\varphi_1,\ldots,\varphi_p$;
 - `tol` is the requested tolerance;
 - `s` and `shift` are optional reusable parameters returned by
   `find_optimal_param`;
@@ -194,17 +177,8 @@ w = phimv(1,1,A,v0,V);
 
 This computes
 
-\[
-w
-=
-e^A v_0
-+
-\varphi_1(A)v_1
-+
-\varphi_2(A)v_2
-+
-\varphi_3(A)v_3.
-\]
+$w=e^A v_0+\varphi_1(A)v_1+\varphi_2(A)v_2+\varphi_3(A)v_3.$
+
 
 ### Example 2: matrix-free operator
 
@@ -230,14 +204,8 @@ W = phimv(t,alpha,Afun,v0,V);
 
 Column `i` of `W` is
 
-\[
-W(:,i)
-=
-e^{t_iA}v_0
-+
-\sum_{j=1}^{p}
-t_i^j\varphi_j(t_iA)v_j.
-\]
+$W(:,i)=e^{t_iA}v_0+\sum_{j=1}^{p}t_i^j\varphi_j(t_iA)v_j.$
+
 
 The parameters `t` and `alpha` are intentionally separate.  For example,
 
@@ -302,7 +270,7 @@ run experiments/experiment2.m
 
 This compares `phimv`, `bamphi`, `kiops`, and `phipm` on a Chebyshev
 spectral discretization of the one-dimensional Laplacian for several values
-of \(t\).
+of $t$.
 
 The high-precision reference calculation requires the optional Advanpix
 toolbox.
@@ -332,7 +300,7 @@ run experiments/experiment4.m
 
 This reproduces the advection-diffusion-reaction test using the exponential
 Runge--Kutta scheme EXPRK4S6.  Each time step uses four grouped
-\(\varphi\)-combination calls for each of `phimv`, `bamphi`, and `kiops`.
+$\varphi$-combination calls for each of `phimv`, `bamphi`, and `kiops`.
 
 The spatial operator is stored as a sparse Kronecker sum.  The reference
 solution is computed with `ode15s` using
