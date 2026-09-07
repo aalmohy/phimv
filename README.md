@@ -12,7 +12,7 @@ Preprint: [arXiv:2509.26475](https://arxiv.org/abs/2509.26475)
 \(\varphi\)-function actions,
 
 \[
-W(:,i)
+w_i
 =
 \varphi_0(t_iA)v_0
 +
