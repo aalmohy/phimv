@@ -2,18 +2,18 @@
 
 MATLAB implementation and reproducibility files for
 
-**Awad H. Al-Mohy, _Computing Linear Combinations of \(\varphi\)-Function Actions for Exponential Integrators_.**
+**Awad H. Al-Mohy, _Computing Linear Combinations of $\varphi$-Function Actions for Exponential Integrators_.**
 
 Preprint: [arXiv:2509.26475](https://arxiv.org/abs/2509.26475)
 
 ## Overview
 
 `phimv` computes one or several linear combinations of matrix
-\(\varphi\)-function actions,
+$\varphi$-function actions,
 
 $w_i = \varphi_0(t_iA)v_0 + \sum_{j=1}^{p}\alpha_i^j\,\varphi_j(t_iA)v_j,\qquad i=1,\ldots,r,$
 where
-$\varphi_0(z)=e^z,\qquad \varphi_j(z)=\frac{e^z-\sum_{k=0}^{j-1}z^k/k!}{z^j},\quad j\ge 1.$
+$\varphi_0(z)=e^z,\qquad \varphi_j(z)=\frac{e^z-\sum_{k=0}^{j-1}z^k/k!}{z^j},\quad j\ge 1$.
 
 The routine is designed for exponential-integrator computations and supports
 
@@ -151,9 +151,9 @@ Here
 - `t` is a scalar or a vector of stage parameters;
 - `alpha` is a scalar or has `numel(t)` entries;
 - `A` is an `n`-by-`n` matrix or a block-capable function handle;
-- `v0` is the vector multiplying \(\varphi_0(tA)=e^{tA}\);
+- `v0` is the vector multiplying $\varphi_0(tA)=e^{tA}$;
 - `V = [v1,...,vp]` contains the vectors multiplying
-  \(\varphi_1,\ldots,\varphi_p\);
+  $\varphi_1,\ldots,\varphi_p$;
 - `tol` is the requested tolerance;
 - `s` and `shift` are optional reusable parameters returned by
   `find_optimal_param`;
@@ -270,7 +270,7 @@ run experiments/experiment2.m
 
 This compares `phimv`, `bamphi`, `kiops`, and `phipm` on a Chebyshev
 spectral discretization of the one-dimensional Laplacian for several values
-of \(t\).
+of $t$.
 
 The high-precision reference calculation requires the optional Advanpix
 toolbox.
@@ -300,7 +300,7 @@ run experiments/experiment4.m
 
 This reproduces the advection-diffusion-reaction test using the exponential
 Runge--Kutta scheme EXPRK4S6.  Each time step uses four grouped
-\(\varphi\)-combination calls for each of `phimv`, `bamphi`, and `kiops`.
+$\varphi$-combination calls for each of `phimv`, `bamphi`, and `kiops`.
 
 The spatial operator is stored as a sparse Kronecker sum.  The reference
 solution is computed with `ode15s` using
