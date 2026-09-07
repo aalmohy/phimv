@@ -177,17 +177,8 @@ w = phimv(1,1,A,v0,V);
 
 This computes
 
-\[
-w
-=
-e^A v_0
-+
-\varphi_1(A)v_1
-+
-\varphi_2(A)v_2
-+
-\varphi_3(A)v_3.
-\]
+$w=e^A v_0+\varphi_1(A)v_1+\varphi_2(A)v_2+\varphi_3(A)v_3.$
+
 
 ### Example 2: matrix-free operator
 
