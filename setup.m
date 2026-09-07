@@ -264,7 +264,7 @@ end
 
 if exist(dest,'dir')
     fprintf('%-12s removing existing local copy...\n',pkg.name);
-    rmdir(dest,'s');
+    remove_directory_robust(dest,externaldir);
 end
 
 mkdir(dest);
@@ -329,7 +329,7 @@ function install_matrices_expm(anymatrix_root,force)
     if exist(dest,'dir')
         fprintf('%-12s removing existing Anymatrix collection...\n', ...
                 'matrices-expm');
-        rmdir(dest,'s');
+        remove_directory_robust(dest,fileparts(anymatrix_root));
     end
 
     zipfile = [tempname,'.zip'];
@@ -395,7 +395,7 @@ function install_matrices_expm(anymatrix_root,force)
     end
 
     if exist(stagedir,'dir')
-        rmdir(stagedir,'s');
+        remove_directory_robust(stagedir,tempdir);
     end
 
     if ~exist(marker,'file')
@@ -465,7 +465,78 @@ end
 
 if ~isempty(to_remove)
     rmpath(to_remove{:});
+    rehash;
 end
+
+end
+
+
+% -------------------------------------------------------------------------
+
+function remove_directory_robust(dest,fallbackdir)
+%REMOVE_DIRECTORY_ROBUST Remove a directory tree reliably.
+%
+% This helper is mainly needed on Windows, where a directory can fail to
+% disappear temporarily if
+%   * MATLAB's current folder lies inside the directory,
+%   * files have read-only/hidden/system attributes, or
+%   * a synchronization service such as Dropbox briefly holds a file.
+%
+% MATLAB path entries under external/ are removed before installation.
+% Here we additionally move out of the directory if necessary, clear
+% restrictive Windows attributes, and retry the recursive removal.
+
+    if ~exist(dest,'dir')
+        return
+    end
+
+    dest_canon = canonical_path(dest);
+    pwd_canon  = canonical_path(pwd);
+
+    % Windows cannot remove a directory that contains MATLAB's current
+    % working directory.
+    if starts_with_path(pwd_canon,dest_canon)
+        if nargin < 2 || isempty(fallbackdir) || ~exist(fallbackdir,'dir')
+            fallbackdir = fileparts(dest);
+        end
+        cd(fallbackdir);
+    end
+
+    % Give MATLAB's path manager and any synchronization client a moment
+    % to release recently used files.
+    rehash;
+    pause(0.10);
+
+    % GitHub ZIP archives should normally be writable, but on Windows a
+    % copied/synchronized tree can occasionally acquire restrictive file
+    % attributes.  Clearing them makes recursive deletion more robust.
+    if ispc
+        cmd = sprintf('attrib -R -H -S "%s\\*" /S /D >NUL 2>&1',dest);
+        system(cmd);
+    end
+
+    max_attempts = 6;
+    last_msg = '';
+
+    for attempt = 1:max_attempts
+
+        [ok,msg] = rmdir(dest,'s');
+
+        if ok
+            return
+        end
+
+        last_msg = msg;
+
+        % Dropbox/OneDrive/antivirus locks are often transient.
+        pause(0.25*attempt);
+    end
+
+    error(['Could not remove the directory after %d attempts:\n  %s\n\n' ...
+           'MATLAB reported:\n%s\n\n' ...
+           'If this directory is being synchronized by Dropbox/OneDrive, ' ...
+           'pause synchronization briefly and rerun setup(true).'], ...
+           max_attempts,dest,last_msg);
 
 end
 
@@ -479,7 +550,7 @@ if exist(zipfile,'file')
 end
 
 if exist(dest,'dir')
-    rmdir(dest,'s');
+    remove_directory_robust(dest,fileparts(dest));
 end
 
 end
