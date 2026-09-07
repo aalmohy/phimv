@@ -20,7 +20,7 @@ The routine is designed for exponential-integrator computations and supports
 - explicit dense or sparse matrices;
 - matrix-free, block-capable linear operators;
 - a single linear combination or several combinations evaluated simultaneously;
-- independent stage parameters \(t_i\) and polynomial weights \(\alpha_i\);
+- independent stage parameters $t_i$ and polynomial weights $\alpha_i$;
 - user-controlled accuracy;
 - reuse of the scaling and shift parameters when the same operator is used repeatedly.
 
