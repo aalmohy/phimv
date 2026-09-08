@@ -4,7 +4,7 @@ MATLAB implementation and reproducibility files for
 
 **Awad H. Al-Mohy, _Computing Linear Combinations of $\varphi$-Function Actions for Exponential Integrators_.**
 
-Preprint: [arXiv:2509.26475](https://arxiv.org/abs/2509.26475)
+Preprint: [arXiv:2509.26475](https://arxiv.org/abs/2509.26475) To appear in IMA Journal of Numerical Analysis.
 
 ## Overview
 
@@ -347,7 +347,8 @@ If you use this software in research, please cite:
   eprint       = {2509.26475},
   archivePrefix= {arXiv},
   primaryClass = {math.NA},
-  url          = {https://arxiv.org/abs/2509.26475}
+  url          = {https://arxiv.org/abs/2509.26475},
+ note          = {To appear in IMA Journal of Numerical Analysis}
 }
 ```
 
